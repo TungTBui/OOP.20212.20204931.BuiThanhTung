@@ -1,0 +1,9 @@
+6.2
+- The message returns "You've chosen: No"
+- Change from int option = JOptionPane.showConfirmDialog(null, "Do you want to change to the first class ticket?"); 
+		to int option = JOptionPane.showConfirmDialog(null, "Do you want to change to the first class ticket?", null, JOptionPane.YES_NO_OPTION? "I do": "I do not");
+- or create a array for different options:
+	String[] options = {"I do", "I do not"};
+    	int option = JOptionPane.showOptionDialog(null, "Do you want to change to the first class ticket?", null,
+        JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+        null, options, options[0]);
