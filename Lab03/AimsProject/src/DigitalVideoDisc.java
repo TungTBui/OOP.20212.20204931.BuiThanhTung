@@ -48,6 +48,4 @@ public class DigitalVideoDisc {
 		this.cost = cost;
 	}
 	
-	
-	
 }
