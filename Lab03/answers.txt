@@ -1,8 +1,7 @@
 1. Part 6: If you create a constructor method to build a DVD by title then create a constructor method to build a DVD by category. 
 Does JAVA allow you to do this?
 
-Answer: No, it's not allowed to do that. The reason is that in order to implement constructor overloading, the two constructors must have different signatures (different number of parameters
-or different parameter types). In this example, title and category both have the type String. Therefore these two constructors have the same parameter types or in other words, different signatures.
+Answer: No, it's not allowed to do that. The reason is that in order to implement constructor overloading, the two constructors must have different signatures (different number of parameters or different parameter types). In this example, title and category both have the type String. Therefore these two constructors have the same parameter types or in other words, different signatures.
 
 2. Part 10: Try to add a method addDigitalVideoDisc which allows to pass an arbitrary number of arguments for dvd. Compared to an array parameter. What do you prefer in this case?
-Personally, I would prefer to use the method with varagrs since it's more convinient and simple as we don't need to make a temporary array and it would still allows to pass an array.   
+Personally, I would prefer to use the method with varagrs since it's more convenient and simple as we don't need to make a temporary array and it would still allow to pass an array.   
