@@ -55,6 +55,7 @@ public class Aims {
 		
 	}
 	
+	// The main menu
 	public static void showMenu() {
 		System.out.println("AIMS: ");
 		System.out.println("--------------------------------");
@@ -66,6 +67,7 @@ public class Aims {
 		System.out.println("Please choose a number: 0-1-2-3");
 	}
 	
+	// The store menu
 	public static void storeMenu() {
 	System.out.println("Options: ");
 	System.out.println("--------------------------------");
@@ -77,6 +79,7 @@ public class Aims {
 	System.out.println("Please choose a number: 0-1-2-3");	
 	}
 	
+	// The cart menu
 	public static void cartMenu() {
 		System.out.println("Options: ");
 		System.out.println("--------------------------------");
@@ -87,6 +90,8 @@ public class Aims {
 		System.out.println("--------------------------------");
 		System.out.println("Please choose a number: 0-1-2-3");	
 	}
+	
+	// The update store menu
 	public static void updateStore() {
 		System.out.println("Options: ");
 		System.out.println("--------------------------------");
@@ -97,6 +102,7 @@ public class Aims {
 		System.out.println("Please choose a number: 0-1-2");
 		}
 	
+	// Yes or No option menu
 	public static void yesNoOption() {
 		System.out.println("Options: ");
 		System.out.println("--------------------------------");
@@ -107,6 +113,7 @@ public class Aims {
 		System.out.println("Please choose a number: 0-1-2");
 		}
 	
+	// Yes, No or go back menu
 	public static void yesNo() {
 		System.out.println("Options: ");
 		System.out.println("--------------------------------");
@@ -117,6 +124,7 @@ public class Aims {
 		System.out.println("Please choose a number: 1-2");
 	}
 	
+	// return the chosen option and check its validity
 	public static int chooseOption(int numOfOptions) {
 		boolean done = false;
 		Scanner scanner = new Scanner(System.in);
@@ -135,6 +143,7 @@ public class Aims {
 		return option;
 	}
 	
+	// The filter menu
 	public static void filterMenu() {
 		System.out.println("Options: ");
 		System.out.println("--------------------------------");
@@ -145,6 +154,7 @@ public class Aims {
 		System.out.println("Please choose a number: 0-1-2");
 	}
 	
+	// The sort menu
 	public static void sortMenu() {
 		System.out.println("Options: ");
 		System.out.println("--------------------------------");
@@ -155,6 +165,7 @@ public class Aims {
 		System.out.println("Please choose a number: 0-1-2");
 	}
 	
+	// Handle the see current cart menu
 	public static void seeCurrentCart(Cart cart) {
 		cart.print();
 		boolean doneWithCurrentCart = false; 
@@ -219,6 +230,7 @@ public class Aims {
 		}
 	}
 	
+	// addDVD menu
 	public static void addDVD(Cart cart, ArrayList<DigitalVideoDisc> dvdFound) {
 		for (DigitalVideoDisc dvd: dvdFound) {
 			System.out.println(dvd);
@@ -240,6 +252,7 @@ public class Aims {
 		}	
 	}
 	
+
 	public static void aimsProject(Cart cart, Store store) {
 		
 		boolean exit = false;

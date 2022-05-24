@@ -26,9 +26,12 @@ public class Store {
 				// Update the number of discs with that title removed
 				discRemoved ++;
 			}
-			
 		}
-		System.out.println(discRemoved + " " + dvd.getTitle() +  "  has been removed from the store");
+		if (discRemoved == 0) {
+			System.out.println("The disc " + dvd.getTitle() + " is not in the cart");
+		}
+		else
+			System.out.println(discRemoved + " " + dvd.getTitle() +  "  has been removed from the store");
 		return discRemoved;
 	}
 	

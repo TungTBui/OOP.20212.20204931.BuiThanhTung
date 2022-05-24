@@ -121,6 +121,7 @@ public class Cart {
 			// Inform the user
 			System.out.println(discRemoved + " " + title +  "  has been removed from the cart");
 			System.out.println("Your cart currently has a total of " + qtyOrdered +  " DVDs");
+			itemsOrdered = new DigitalVideoDisc[MAX_NUMBERS_ORDERED];
 			cartList.toArray(itemsOrdered);
 		}
 		return discRemoved;
@@ -143,6 +144,7 @@ public class Cart {
 		float cost = 0;
 		for (int i = 0; i < MAX_NUMBERS_ORDERED; i++) {
 			if (itemsOrdered[i] != null) {
+				System.out.println(i);
 				cost += itemsOrdered[i].getCost();
 			}
 		}
@@ -156,7 +158,7 @@ public class Cart {
 		System.out.println("Sort by cost: ");
 		for (int i = 0; i < qtyOrdered; i ++) {
 			itemsOrdered[i] = newCart[i];
-			System.out.print(newCart[i].getTitle() + " (id = " + newCart[i].getId() + ", cost " + newCart[i].getCost() + ") "  + " - ");
+			System.out.print(newCart[i].getTitle() + " (id = " + newCart[i].getId() + ", cost " + newCart[i].getCost() + ")"  + " - ");
 		}
 		System.out.print("\n");
 		return itemsOrdered;
@@ -169,7 +171,7 @@ public class Cart {
 		System.out.println("Sort by title: ");
 		for (int i = 0; i < qtyOrdered; i ++) {
 			itemsOrdered[i] = newCart[i];
-			System.out.print(newCart[i].getTitle() + " (id = " + newCart[i].getId() + ") "  + " - ");
+			System.out.print(newCart[i].getTitle() + " (id = " + newCart[i].getId() + ")"  + " - ");
 		}
 		System.out.print("\n");
 		return itemsOrdered;
@@ -221,7 +223,9 @@ public class Cart {
 		System.out.println("***********************CART***********************");
 		System.out.println("Ordered Items:");
 		
+		
 		DigitalVideoDisc[] newCart = Arrays.copyOfRange(itemsOrdered, 0, qtyOrdered);
+		
 		
 		DVDUtils.sortByLength(newCart);
 		DVDUtils.sortByCost(newCart);
