@@ -51,7 +51,7 @@ public class DVDUtils {
 class sortByCostComparator implements Comparator<DigitalVideoDisc> {
 	public int compare(DigitalVideoDisc dvd1, DigitalVideoDisc dvd2) {
 		
-		return dvd1.getCost() < dvd2.getCost() ?1:-1;
+		return dvd1.getCost() > dvd2.getCost() ?1:-1;
 	}
 }
 class sortByTitleComparator implements Comparator<DigitalVideoDisc> {

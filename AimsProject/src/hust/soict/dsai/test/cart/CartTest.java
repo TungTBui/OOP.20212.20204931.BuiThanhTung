@@ -24,10 +24,31 @@ public class CartTest {
 		cart.addDigitalVideoDisc(dvd4);
 		
 		// Test the print method
+		System.out.println();
+		System.out.println("----------Test the print() method----------");
 		cart.print();
 		
-		//Test the search methods
+		// Test the search ID method
+		System.out.println();
+		System.out.println("----------Test the search ID method----------");
+		cart.idSearch(5);
+		
+		// Test the search title method
+		System.out.println();
+		System.out.println("----------Test the search title method----------");
 		cart.titleSearch("The Lion King");
+		
+		//Test the sort by cost method
+		System.out.println();
+		System.out.println("----------Test the sort by cost method----------");
+		cart.sortByCost();
+		
+		//Test the sort by title method
+		System.out.println();
+		System.out.println("----------Test the sort by title method----------");
+		cart.sortByTitle();
+		
+		
 	}
 
 }

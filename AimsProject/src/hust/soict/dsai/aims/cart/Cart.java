@@ -8,7 +8,7 @@ import hust.soict.dsai.aims.utils.DVDUtils;
 
 public class Cart {
 	
-	int qtyOrdered = 0; 
+	public int qtyOrdered = 0; 
 	
 	public static final int MAX_NUMBERS_ORDERED = 20;
 	private DigitalVideoDisc itemsOrdered[] = new DigitalVideoDisc[MAX_NUMBERS_ORDERED];
@@ -75,13 +75,19 @@ public class Cart {
 	// Return the number of discs removed from the cart
 	public int removeDigitalVideoDisc(DigitalVideoDisc disc) {
 		
-		// Count the number of the disc removed
+		
+		String title = disc.getTitle();
+		int discRemoved = this.removeDigitalVideoDisc(title);
+		return discRemoved;
+	}
+	
+	public int removeDigitalVideoDisc(String title) {
 		int discRemoved = 0;
 		
-			
+		
 		for(DigitalVideoDisc item : itemsOrdered) {
 			if (item != null) {
-				if (disc.getTitle().equals(item.getTitle())) {
+				if (title.equals(item.getTitle())) {
 					// Update the quantity of the discs in the cart
 					qtyOrdered --;
 					// Update the number of discs with that title removed
@@ -92,7 +98,7 @@ public class Cart {
 		}
 		
 		if (discRemoved == 0) {
-			System.out.println("The disc " + disc.getTitle() + " is not in the cart");
+			System.out.println("The disc " + title + " is not in the cart");
 		}
 		
 		else {
@@ -104,7 +110,7 @@ public class Cart {
 				
 				if (item != null) {
 					
-					if (disc.getTitle() != item.getTitle()) {
+					if (title != item.getTitle()) {
 						cartList.add(item);
 					}
 															
@@ -113,15 +119,13 @@ public class Cart {
 			}
 	
 			// Inform the user
-			System.out.println(discRemoved + " " + disc.getTitle() +  "  has been removed from the cart");
+			System.out.println(discRemoved + " " + title +  "  has been removed from the cart");
 			System.out.println("Your cart currently has a total of " + qtyOrdered +  " DVDs");
-			
 			cartList.toArray(itemsOrdered);
-			
 		}
-		
 		return discRemoved;
 	}
+
 	
 	
 	// Add two discs into the cart
@@ -145,43 +149,35 @@ public class Cart {
 		return cost;
 	}
 	
-	DigitalVideoDisc[] sortByCost() {
+	public DigitalVideoDisc[] sortByCost() {
 		DigitalVideoDisc[] newCart = Arrays.copyOfRange(itemsOrdered, 0, qtyOrdered);
+		DVDUtils.sortByTitle(newCart);
 		DVDUtils.sortByCost(newCart);
 		System.out.println("Sort by cost: ");
 		for (int i = 0; i < qtyOrdered; i ++) {
 			itemsOrdered[i] = newCart[i];
-			System.out.print(newCart[i].getTitle() + " - ");
+			System.out.print(newCart[i].getTitle() + " (id = " + newCart[i].getId() + ", cost " + newCart[i].getCost() + ") "  + " - ");
 		}
 		System.out.print("\n");
 		return itemsOrdered;
 	}
 	
-	DigitalVideoDisc[] sortByTitle() {
+	public DigitalVideoDisc[] sortByTitle() {
 		DigitalVideoDisc[] newCart = Arrays.copyOfRange(itemsOrdered, 0, qtyOrdered);
+		DVDUtils.sortByCost(newCart);
 		DVDUtils.sortByTitle(newCart);
 		System.out.println("Sort by title: ");
 		for (int i = 0; i < qtyOrdered; i ++) {
 			itemsOrdered[i] = newCart[i];
-			System.out.print(newCart[i].getTitle() + " - ");
+			System.out.print(newCart[i].getTitle() + " (id = " + newCart[i].getId() + ") "  + " - ");
 		}
 		System.out.print("\n");
 		return itemsOrdered;
 	}
 	
-//	DigitalVideoDisc[] sortByLength() {
-//		DigitalVideoDisc[] newCart = Arrays.copyOfRange(itemsOrdered, 0, qtyOrdered);
-//		DVDUtils.sortByLength(newCart);
-//		System.out.println("Sort by length: ");
-//		for (int i = 0; i < qtyOrdered; i ++) {
-//			itemsOrdered[i] = newCart[i];
-//			System.out.print(newCart[i].getTitle() + " - ");
-//		}
-//		System.out.print("\n");
-//		return itemsOrdered;
-//	}
 	
-	public void idSearch(int id) {
+	public DigitalVideoDisc idSearch(int id) {
+		System.out.println("***************Searching***************");
 		DigitalVideoDisc foundDVD = null;
 		for (int i = 0; i < qtyOrdered; i ++) {
 			if (itemsOrdered[i].getId() == (id)) {
@@ -197,9 +193,11 @@ public class Cart {
 			System.out.println("The disc with the ID " + id + " is found. Here is the information for that disc:\n" + foundDVD);
 		 
 		}
+		return foundDVD; 
 	}
 	
-	public void titleSearch(String title) {
+	public ArrayList<DigitalVideoDisc> titleSearch(String title) {
+		System.out.println("***************Searching***************");
 		ArrayList<DigitalVideoDisc> foundDVDs = new ArrayList<DigitalVideoDisc>();
 		for (int i = 0; i < qtyOrdered; i ++) {
 			if (itemsOrdered[i].isMatch(title)) {
@@ -216,6 +214,7 @@ public class Cart {
 				System.out.println(i);
 			} 
 		}
+		return foundDVDs;
 	}
 	
 	public void print() {
