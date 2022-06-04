@@ -1,44 +1,22 @@
-package hust.soict.dsai.aims.disc;
+package hust.soict.dsai.aims.media;
 import java.time.LocalDate;
 
-public class DigitalVideoDisc {
+public class DigitalVideoDisc extends Media{
 
-	private String title;
-	private String category;
 	private String director;
 	private int length;
-	private float cost;
 	private LocalDate dateAdded;
-	private int id;
 	private static int nbDigitalVideoDiscs = 0;
 
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String newTitle) {
-		title = newTitle;
-	}
-
-	public String getCategory() {
-		return category;
-	}
 	public String getDirector() {
 		return director;
 	}
 	public int getLength() {
 		return length;
 	}
-	public float getCost() {
-		return cost;
-	}
 	public LocalDate getDateAdded() {
 		return dateAdded;
 	}
-	public int getId() {
-		return id;
-	}
-	
 	public DigitalVideoDisc(String title) {
 		super();
 		this.title = title;
@@ -79,7 +57,7 @@ public class DigitalVideoDisc {
 		id = nbDigitalVideoDiscs;
 	}
 	public String toString() {
-		return title + " (Category: " + category + ") directed by " + director+ ", id = " + id; 
+		return title + " (Category: " + getCategory() + ") directed by " + director+ ", id = " + id; 
 	}
 	
 	public boolean isMatch(String title) {
