@@ -10,38 +10,38 @@ public class StoreTest {
 		
 		Store store = new Store();
 		
-		System.out.println("---------Test Add and Remove DVD in a store--------");
-		DigitalVideoDisc dvd1 = new DigitalVideoDisc("The Lion King",
+		System.out.println("---------Test Add and Remove media in a store--------");
+		DigitalVideoDisc media1 = new DigitalVideoDisc("The Lion King",
 				"Animation", "Roger Allers", 87, 19.95f);
-		store.addDVD(dvd1);
+		store.addMedia(media1);
 		
-		DigitalVideoDisc dvd2 = new DigitalVideoDisc("Star Wars",
+		DigitalVideoDisc media2 = new DigitalVideoDisc("Star Wars",
 				"Science Fiction", "George Lucas", 87, 24.95f);
-		store.addDVD(dvd2);
+		store.addMedia(media2);
 		
-		DigitalVideoDisc dvd3 = new DigitalVideoDisc("Aladin",
+		DigitalVideoDisc media3 = new DigitalVideoDisc("Aladin",
 				"Animation", 18.99f);
-		store.addDVD(dvd3);
+		store.addMedia(media3);
 		
-		DigitalVideoDisc dvd4 = new DigitalVideoDisc("Princess Mononoke",
+		DigitalVideoDisc media4 = new DigitalVideoDisc("Princess Mononoke",
 				"Animation", "Hayao Miyazaki", 18.99f);
-		store.addDVD(dvd4);
+		store.addMedia(media4);
 		
-		DigitalVideoDisc dvd5 = new DigitalVideoDisc("Spirited Away",
+		DigitalVideoDisc media5 = new DigitalVideoDisc("Spirited Away",
 				"Animation", "Hayao Miyazaki", 18.15f);
-		store.addDVD(dvd5);
+		store.addMedia(media5);
 		
-		DigitalVideoDisc dvd6 = new DigitalVideoDisc("Tenet",
+		DigitalVideoDisc media6 = new DigitalVideoDisc("Tenet",
 				"Action", "Christopher Nolan", 22.45f);
-		store.addDVD(dvd6);
+		store.addMedia(media6);
 		
 		System.out.println();
-		System.out.println("The store after adding 6 dvds");
+		System.out.println("The store after adding 6 media");
 		store.print();
 		
 		System.out.println();
-		System.out.println("The store after deleting the fifth dvd");
-		store.removeDVD(dvd5);
+		System.out.println("The store after deleting the fifth media");
+		store.removeMedia(media5);
 		store.print();
 	}
 }

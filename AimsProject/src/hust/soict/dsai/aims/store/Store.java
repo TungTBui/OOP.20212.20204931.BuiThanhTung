@@ -4,89 +4,95 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import hust.soict.dsai.aims.media.DigitalVideoDisc;
-import hust.soict.dsai.aims.utils.DVDUtils;
+import hust.soict.dsai.aims.media.Media;
+import hust.soict.dsai.aims.utils.MediaUtils;
 
 public class Store {
 	
 	//Section 10
 	
-	public ArrayList<DigitalVideoDisc> itemsInStore = new ArrayList<DigitalVideoDisc>();
+	public ArrayList<Media> itemsInStore = new ArrayList<Media>();
+	public int numItemsInStore;
 	
-	public void addDVD(DigitalVideoDisc dvd) {
-		itemsInStore.add(dvd);
-		System.out.println("The disk " + dvd.getTitle() + " has been added to the store.");
+	public void addMedia(Media media) {
+		if (itemsInStore.contains(media)) {
+			System.out.println("The media is already in the store.");
+		}
+		else {
+			itemsInStore.add(media);
+			System.out.println(media.getTitle() + " has been added to the store.");
+			numItemsInStore ++;
+		}
+
 	}
 	
-	public int removeDVD(DigitalVideoDisc dvd) {
+	public int removeMedia(Media media) {
 		int discRemoved = 0;
 
-		for(DigitalVideoDisc disk: itemsInStore) {
-			if (disk.getTitle().equals(dvd.getTitle())) {
-				itemsInStore.remove(dvd);
+		for(Media mediaInStore: itemsInStore) {
+			if (mediaInStore.getTitle().equals(media.getTitle())) {
+				itemsInStore.remove(mediaInStore);
 				// Update the number of discs with that title removed
 				discRemoved ++;
 			}
 		}
 		if (discRemoved == 0) {
-			System.out.println("The disc " + dvd.getTitle() + " is not in the cart");
+			System.out.println(media.getTitle() + " is not in the cart");
 		}
 		else
-			System.out.println(discRemoved + " " + dvd.getTitle() +  "  has been removed from the store");
+			System.out.println(discRemoved + " " + media.getTitle() +  "  has been removed from the store");
 		return discRemoved;
 	}
 	
-	public ArrayList<DigitalVideoDisc> titleSearch(String title) {
+	public ArrayList<Media> titleSearch(String title) {
 		System.out.println("***************Searching***************");
-		ArrayList<DigitalVideoDisc> foundDVDs = new ArrayList<DigitalVideoDisc>();
+		ArrayList<Media> foundMedia = new ArrayList<Media>();
 		
-		for (DigitalVideoDisc dvd: itemsInStore) {
-			if (dvd.isMatch(title)) {
-				foundDVDs.add(dvd);
+		for (Media medium: itemsInStore) {
+			if (medium.isMatch(title)) {
+				foundMedia.add(medium);
 			}
 		}
-		if (foundDVDs.size() == 0) {
-			System.out.println("The disc with the given title is not in the store");
+		if (foundMedia.size() == 0) {
+			System.out.println("The media with the given title is not in the store");
 			
 		}
 		else {
-			System.out.println("The disc with the title " + title + " is found. Here is the information for that disc:");
-			for (DigitalVideoDisc i: foundDVDs) {
+			System.out.println("The media with the title " + title + " is found. Here is the information for that media:");
+			for (Media i: foundMedia) {
 				System.out.println(i);
 			} 
 		}
-		return foundDVDs;
+		return foundMedia;
 	}
 	
-	public DigitalVideoDisc idSearch(int id) {
+	public Media idSearch(int id) {
 		System.out.println("***************Searching***************");
-		DigitalVideoDisc foundDVD = null;
-		for (DigitalVideoDisc dvd: itemsInStore) {
-			if (dvd.getId() == (id)) {
-				foundDVD = dvd;
+		Media foundMedia = null;
+		for (Media medium: itemsInStore) {
+			if (medium.getId() == (id)) {
+				foundMedia = medium;
 				break;
 			}
 		}
-		if (foundDVD == null) {
-			System.out.println("The disc with the given ID is not in the store");
+		if (foundMedia == null) {
+			System.out.println("The media with the given ID is not in the store");
 			
 		}
 		else {
-			System.out.println("The disc with the ID " + id + " is found");
+			System.out.println("The media with the ID " + id + " is found");
 		 
 		}
-		return foundDVD; 
+		return foundMedia; 
 	}
 	
 	
 	public void print() {
 		System.out.println("***********************Store***********************");
-		System.out.println("Store items:");
+		System.out.println("Store items:");		
 		
-		DigitalVideoDisc[] store = itemsInStore.toArray(new DigitalVideoDisc[itemsInStore.size()]);
-		
-		
-		for (int i = 0; i < store.length; i ++) {
-			System.out.println(store[i]);
+		for (Media medium: itemsInStore) {
+			System.out.println(medium);
 		}
 
 	}

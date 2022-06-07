@@ -3,56 +3,71 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import hust.soict.dsai.aims.cart.Cart;
 import hust.soict.dsai.aims.media.DigitalVideoDisc;
+import hust.soict.dsai.aims.media.Media;
 import hust.soict.dsai.aims.store.Store;
+import hust.soict.dsai.aims.utils.MemoryDaemon;
 
 public class Aims {
 
 	public static void main(String[] args) {
 		
+		MemoryDaemon memoryDaemon = new MemoryDaemon();
+		memoryDaemon.run();
+//		Thread daemonThread = new Thread(new MemoryDaemon());
+//		daemonThread.setDaemon(true);
+//		daemonThread.start();
+		
 		Store store = new Store();
 		
 		DigitalVideoDisc dvd1 = new DigitalVideoDisc("The Lion King",
 				"Animation", "Roger Allers", 87, 19.95f);
-		store.addDVD(dvd1);
+		store.addMedia(dvd1);
 		
 		DigitalVideoDisc dvd2 = new DigitalVideoDisc("Star Wars",
 				"Science Fiction", "George Lucas", 87, 24.95f);
-		store.addDVD(dvd2);
+		store.addMedia(dvd2);
 		
 		DigitalVideoDisc dvd3 = new DigitalVideoDisc("Aladin",
 				"Animation", 18.99f);
-		store.addDVD(dvd3);
+		store.addMedia(dvd3);
 		
 		DigitalVideoDisc dvd4 = new DigitalVideoDisc("Princess Mononoke",
 				"Animation", "Hayao Miyazaki", 18.99f);
-		store.addDVD(dvd4);
+		store.addMedia(dvd4);
 		
 		DigitalVideoDisc dvd5 = new DigitalVideoDisc("Spirited Away",
 				"Animation", "Hayao Miyazaki", 18.15f);
-		store.addDVD(dvd5);
+		store.addMedia(dvd5);
 		
 		DigitalVideoDisc dvd6 = new DigitalVideoDisc("Tenet",
 				"Action", "Christopher Nolan", 22.45f);
-		store.addDVD(dvd6);
+		store.addMedia(dvd6);
 		
 		DigitalVideoDisc dvd7 = new DigitalVideoDisc("2001: A Space Odyssey",
 				"Science Fiction", "Stanley Kubrick", 15.99f);
-		store.addDVD(dvd7);
+		store.addMedia(dvd7);
 		
 		DigitalVideoDisc dvd8 = new DigitalVideoDisc("Taxi Driver",
 				"Action", "Martin Scorsese", 14.59f);
-		store.addDVD(dvd8);
+		store.addMedia(dvd8);
 		
 		DigitalVideoDisc dvd9 = new DigitalVideoDisc("Catch Me If You Can",
 				"Action", "Steven Spielberg", 15.22f);
-		store.addDVD(dvd9);
+		store.addMedia(dvd9);
 		
 		DigitalVideoDisc dvd10 = new DigitalVideoDisc("Pulp Fiction",
 				"Comedy & Action", "Quentin Tarantino", 20.99f);
-		store.addDVD(dvd10);
-
-		aimsProject(new Cart(), store);
+		store.addMedia(dvd10);
 		
+		Cart cart = new Cart();
+		cart.addMedia(dvd10);
+		cart.addMedia(dvd1);
+		cart.addMedia(dvd5);
+		cart.addMedia(dvd6);
+		
+		aimsProject(cart, store);
+		
+	
 	}
 	
 	// The main menu
@@ -71,8 +86,8 @@ public class Aims {
 	public static void storeMenu() {
 	System.out.println("Options: ");
 	System.out.println("--------------------------------");
-	System.out.println("1. See a DVD’s details");
-	System.out.println("2. Add a DVD to cart");
+	System.out.println("1. See a medium’s details");
+	System.out.println("2. Add a medium to cart");
 	System.out.println("3. See current cart");
 	System.out.println("0. Back");
 	System.out.println("--------------------------------");
@@ -83,20 +98,21 @@ public class Aims {
 	public static void cartMenu() {
 		System.out.println("Options: ");
 		System.out.println("--------------------------------");
-		System.out.println("1. Filter DVDs in cart");
-		System.out.println("2. Sort DVDs cart");
-		System.out.println("3. Remove DVD from cart");
+		System.out.println("1. Filter Media in cart");
+		System.out.println("2. Sort Media cart");
+		System.out.println("3. Remove medium from cart");
+		System.out.println("4. Place order");
 		System.out.println("0. Back");
 		System.out.println("--------------------------------");
-		System.out.println("Please choose a number: 0-1-2-3");	
+		System.out.println("Please choose a number: 0-1-2-3-4");	
 	}
 	
 	// The update store menu
 	public static void updateStore() {
 		System.out.println("Options: ");
 		System.out.println("--------------------------------");
-		System.out.println("1. Add a DVD to the cart");
-		System.out.println("2. Remove a DVD to the cart");
+		System.out.println("1. Add a medium to the store");
+		System.out.println("2. Remove a medium to the store");
 		System.out.println("0. Back");
 		System.out.println("--------------------------------");
 		System.out.println("Please choose a number: 0-1-2");
@@ -166,7 +182,7 @@ public class Aims {
 	}
 	
 	// Handle the see current cart menu
-	public static void seeCurrentCart(Cart cart) {
+	public static void seeCurrentCart(Cart cart, Store store) {
 		cart.print();
 		boolean doneWithCurrentCart = false; 
 		while (doneWithCurrentCart != true) {
@@ -215,7 +231,11 @@ public class Aims {
 					System.out.println("Enter the title of the DVD you want to remove.");
 					Scanner titleScanner = new Scanner(System.in);
 					String title = titleScanner.nextLine();
-					cart.removeDigitalVideoDisc(title);
+					ArrayList<Media> mediaFound = cart.titleSearch(title);
+					for (Media media: mediaFound) {
+						cart.removeMedia(media);
+					}
+					
 					System.out.println("The current cart:");
 					cart.print();
 					
@@ -223,7 +243,14 @@ public class Aims {
 				}
 				case(4): {
 					System.out.println("An order has been created");
+					if (cart.qtyOrdered >= 5) {
+						Media luckyItem = cart.getALuckyItem(store);
+						cart.addMedia(luckyItem);
+						cart.print();
+					}
+					
 					cart = null;
+					doneWithCurrentCart = true;
 					break;
 				}
 			}
@@ -231,9 +258,9 @@ public class Aims {
 	}
 	
 	// addDVD menu
-	public static void addDVD(Cart cart, ArrayList<DigitalVideoDisc> dvdFound) {
-		for (DigitalVideoDisc dvd: dvdFound) {
-			System.out.println(dvd);
+	public static void addMedia(Cart cart, ArrayList<Media> mediaFound) {
+		for (Media media: mediaFound) {
+			System.out.println(media);
 			System.out.println("Do you want to add this DVD?");
 			yesNo();
 			int dvdAddOption = chooseOption(3);
@@ -242,7 +269,7 @@ public class Aims {
 					break;
 				}
 				case(1): {
-					cart.addDigitalVideoDisc(dvd);
+					cart.addMedia(media);
 					break;
 				}
 				case(2): {
@@ -256,7 +283,7 @@ public class Aims {
 	public static void aimsProject(Cart cart, Store store) {
 		
 		boolean exit = false;
-		
+
 		while (exit != true) {
 			showMenu();
 			int menuOption = chooseOption(4);
@@ -277,22 +304,22 @@ public class Aims {
 								break;
 							}
 							case(1): {
-								System.out.println("Please enter the title of that DVD");
-								Scanner dvdScanner = new Scanner(System.in);
-								String dvdTitle = dvdScanner.nextLine();
-								ArrayList<DigitalVideoDisc> dvdFound = store.titleSearch(dvdTitle);
+								System.out.println("Please enter the title of that medium");
+								Scanner mediaScanner = new Scanner(System.in);
+								String mediaTitle = mediaScanner.nextLine();
+								ArrayList<Media> mediaFound = store.titleSearch(mediaTitle);
 
-								if (dvdFound.size() > 0) {
-									System.out.println("Do you want to add these DVDs to the cart?");
+								if (mediaFound.size() > 0) {
+									System.out.println("Do you want to add these media to the cart?");
 									yesNoOption();
-									int dvdsAddOption = chooseOption(3);
-									switch (dvdsAddOption) {
+									int mediaAddOption = chooseOption(3);
+									switch (mediaAddOption) {
 										case(0): {
 											exit = true;
 											break;
 										}
 										case(1) : {
-											addDVD(cart, dvdFound);
+											addMedia(cart, mediaFound);
 											System.out.println("Now you will go back to the View store menu");
 											break;
 										}
@@ -307,17 +334,17 @@ public class Aims {
 							}
 		
 							case(2): {
-								System.out.println("Please enter the title of the DVD you want to add");
-								Scanner dvdScanner = new Scanner(System.in);
-								String dvdTitle = dvdScanner.nextLine();
-								ArrayList<DigitalVideoDisc> dvdFound = store.titleSearch(dvdTitle);
-								addDVD(cart, dvdFound);
-								System.out.println("The cart has been updated. There are currently " + cart.qtyOrdered + " DVDs in the cart.");
+								System.out.println("Please enter the title of the medium you want to add");
+								Scanner mediaScanner = new Scanner(System.in);
+								String mediaTitle = mediaScanner.nextLine();
+								ArrayList<Media> mediaFound = store.titleSearch(mediaTitle);
+								addMedia(cart, mediaFound);
+								System.out.println("The cart has been updated. There are currently " + cart.qtyOrdered + " media in the cart.");
 
 								break;
 							}
 							case(3): {
-								seeCurrentCart(cart);
+								seeCurrentCart(cart, store);
 								break;
 							}
 						}
@@ -336,22 +363,22 @@ public class Aims {
 								break;
 							}
 							case(1): {
-								System.out.println("Please enter the title of the DVD you want to add");
-								Scanner dvdScanner = new Scanner(System.in);
-								String dvdTitle = dvdScanner.nextLine();
-								DigitalVideoDisc dvd = new DigitalVideoDisc(dvdTitle);
-								store.addDVD(dvd);
-								System.out.println("The store has been updated. There are currently " + store.itemsInStore.size() + " DVDs in the store.");
+								System.out.println("Please enter the title of the Medium you want to add");
+								Scanner mediaScanner = new Scanner(System.in);
+								String mediaTitle = mediaScanner.nextLine();
+								DigitalVideoDisc media = new DigitalVideoDisc(mediaTitle);
+								store.addMedia(media);
+								System.out.println("The store has been updated. There are currently " + store.itemsInStore.size() + " media in the store.");
 							
 								break;
 							}
 							case(2): {
-								System.out.println("Please enter the id of the DVD you want to remove");
-								Scanner dvdScanner = new Scanner(System.in);
-								int dvdID = dvdScanner.nextInt();
-								DigitalVideoDisc dvdFound = store.idSearch(dvdID);
-								store.removeDVD(dvdFound);
-								System.out.println("The store has been updated. There are currently " + store.itemsInStore.size() + " DVDs in the store.");
+								System.out.println("Please enter the id of the medium you want to remove");
+								Scanner mediaScanner = new Scanner(System.in);
+								int mediaID = mediaScanner.nextInt();
+								Media mediaFound = store.idSearch(mediaID);
+								store.removeMedia(mediaFound);
+								System.out.println("The store has been updated. There are currently " + store.itemsInStore.size() + " media in the store.");
 								
 								break;
 							}
@@ -361,7 +388,7 @@ public class Aims {
 					break;
 				}
 				case(3): {
-					seeCurrentCart(cart);
+					seeCurrentCart(cart, store);
 					break;
 				}
 			}

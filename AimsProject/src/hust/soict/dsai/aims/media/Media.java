@@ -39,8 +39,35 @@ public abstract class Media {
 		return nbMedias;
 	}
 
-	public Media() {
-		
+	public Media(String title, String category, float cost) {
+		this.title = title;
+		this.category = category;
+		this.cost = cost;
+		dateAdded = LocalDate.now();
+		nbMedias ++;
+		this.id = nbMedias;
+	}
+
+	public Media(String title) {
+		this.title = title;
+		dateAdded = LocalDate.now();
+		nbMedias ++;
+		this.id = nbMedias;
+	}
+
+	public boolean isMatch(String title) {
+		String[] tokens = title.split(" ");
+		boolean found = false;
+		for (String word: tokens) {
+			if (this.title.toLowerCase().contains(word.toLowerCase())) {
+				found = true;
+			}
+		}
+		return found;
+	}
+	
+	public String toString() {
+		return title + " (Category: " + getCategory() + ", id = " + id; 
 	}
 
 }

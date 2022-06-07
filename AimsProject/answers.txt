@@ -1,0 +1,17 @@
+Lab 05
+
+Which classes are aggregates of other classes?
+
+-------------is the aggregation of ----------------------
+Aims					Cart
+Aims					Store
+Aims					Media
+Aims 					MemoryDaemon
+DiskTest				Cart
+Cart					Media
+CompactDisc				Track
+Store					Media
+MediaUtils				Media
+CartTest				Cart
+StoreTest				Store
+DVDTest					DigitalVideoDisc
