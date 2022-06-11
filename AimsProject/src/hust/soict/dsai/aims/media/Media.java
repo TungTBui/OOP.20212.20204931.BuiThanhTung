@@ -70,4 +70,12 @@ public abstract class Media {
 		return title + " (Category: " + getCategory() + ", id = " + id; 
 	}
 
+	public boolean equals(Object obj) {
+		if (!(obj instanceof Media)) {
+			return false;
+		}
+		else {
+			return this.getId() == ((Media) obj).getId();
+		}
+	}
 }

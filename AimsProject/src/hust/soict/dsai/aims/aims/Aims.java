@@ -2,6 +2,7 @@ package hust.soict.dsai.aims.aims;
 import java.util.ArrayList;
 import java.util.Scanner;
 import hust.soict.dsai.aims.cart.Cart;
+import hust.soict.dsai.aims.media.CompactDisc;
 import hust.soict.dsai.aims.media.DigitalVideoDisc;
 import hust.soict.dsai.aims.media.Media;
 import hust.soict.dsai.aims.store.Store;
@@ -9,13 +10,15 @@ import hust.soict.dsai.aims.utils.MemoryDaemon;
 
 public class Aims {
 
+	public static Scanner scanner = new Scanner(System.in);
+	
 	public static void main(String[] args) {
 		
-		MemoryDaemon memoryDaemon = new MemoryDaemon();
-		memoryDaemon.run();
-//		Thread daemonThread = new Thread(new MemoryDaemon());
-//		daemonThread.setDaemon(true);
-//		daemonThread.start();
+//		MemoryDaemon memoryDaemon = new MemoryDaemon();
+//		memoryDaemon.run();
+		Thread daemonThread = new Thread(new MemoryDaemon());
+		daemonThread.setDaemon(true);
+		daemonThread.start();
 		
 		Store store = new Store();
 		
@@ -89,6 +92,7 @@ public class Aims {
 	System.out.println("1. See a medium’s details");
 	System.out.println("2. Add a medium to cart");
 	System.out.println("3. See current cart");
+	System.out.println("4. Play a medium in the store");
 	System.out.println("0. Back");
 	System.out.println("--------------------------------");
 	System.out.println("Please choose a number: 0-1-2-3");	
@@ -143,7 +147,7 @@ public class Aims {
 	// return the chosen option and check its validity
 	public static int chooseOption(int numOfOptions) {
 		boolean done = false;
-		Scanner scanner = new Scanner(System.in);
+//		scanner = new Scanner(System.in);
 		int option = 0;
 		while (!done) {
 			try {
@@ -198,15 +202,15 @@ public class Aims {
 					int filterOption = chooseOption(3);
 					if (filterOption == 1) {
 						System.out.println("Enter the ID of the DVD you want to filter.");
-						Scanner filterScanner = new Scanner(System.in);
-						int id = filterScanner.nextInt();
+//						Scanner filterScanner = new Scanner(System.in);
+						int id = scanner.nextInt();
 						cart.idSearch(id);
 						
 					}
 					else if (filterOption == 2) {
 						System.out.println("Enter the title of the DVD you want to filter.");
-						Scanner filterScanner = new Scanner(System.in);
-						String title = filterScanner.nextLine();
+//						Scanner filterScanner = new Scanner(System.in);
+						String title = scanner.nextLine();
 						cart.titleSearch(title);
 						
 					}
@@ -229,8 +233,8 @@ public class Aims {
 				}
 				case(3): {
 					System.out.println("Enter the title of the DVD you want to remove.");
-					Scanner titleScanner = new Scanner(System.in);
-					String title = titleScanner.nextLine();
+//					Scanner titleScanner = new Scanner(System.in);
+					String title = scanner.nextLine();
 					ArrayList<Media> mediaFound = cart.titleSearch(title);
 					for (Media media: mediaFound) {
 						cart.removeMedia(media);
@@ -297,7 +301,7 @@ public class Aims {
 					boolean doneWithViewStore = false; 
 					while (doneWithViewStore != true) {
 						storeMenu();
-						int storeOption = chooseOption(4);
+						int storeOption = chooseOption(5);
 						switch (storeOption) {
 							case(0): {
 								doneWithViewStore = true;
@@ -305,8 +309,8 @@ public class Aims {
 							}
 							case(1): {
 								System.out.println("Please enter the title of that medium");
-								Scanner mediaScanner = new Scanner(System.in);
-								String mediaTitle = mediaScanner.nextLine();
+//								Scanner mediaScanner = new Scanner(System.in);
+								String mediaTitle = scanner.nextLine();
 								ArrayList<Media> mediaFound = store.titleSearch(mediaTitle);
 
 								if (mediaFound.size() > 0) {
@@ -335,8 +339,8 @@ public class Aims {
 		
 							case(2): {
 								System.out.println("Please enter the title of the medium you want to add");
-								Scanner mediaScanner = new Scanner(System.in);
-								String mediaTitle = mediaScanner.nextLine();
+//								Scanner mediaScanner = new Scanner(System.in);
+								String mediaTitle = scanner.nextLine();
 								ArrayList<Media> mediaFound = store.titleSearch(mediaTitle);
 								addMedia(cart, mediaFound);
 								System.out.println("The cart has been updated. There are currently " + cart.qtyOrdered + " media in the cart.");
@@ -345,6 +349,14 @@ public class Aims {
 							}
 							case(3): {
 								seeCurrentCart(cart, store);
+								break;
+							}
+							case (4): {
+								System.out.println("Here's the list of media that you could play:");
+								store.printPlayableMedia();
+								System.out.println("Please select the ID of the media you want to play");
+								int playID = scanner.nextInt();
+								store.playID(playID);
 								break;
 							}
 						}
@@ -364,8 +376,8 @@ public class Aims {
 							}
 							case(1): {
 								System.out.println("Please enter the title of the Medium you want to add");
-								Scanner mediaScanner = new Scanner(System.in);
-								String mediaTitle = mediaScanner.nextLine();
+//								Scanner mediaScanner = new Scanner(System.in);
+								String mediaTitle = scanner.nextLine();
 								DigitalVideoDisc media = new DigitalVideoDisc(mediaTitle);
 								store.addMedia(media);
 								System.out.println("The store has been updated. There are currently " + store.itemsInStore.size() + " media in the store.");
@@ -374,8 +386,8 @@ public class Aims {
 							}
 							case(2): {
 								System.out.println("Please enter the id of the medium you want to remove");
-								Scanner mediaScanner = new Scanner(System.in);
-								int mediaID = mediaScanner.nextInt();
+//								Scanner mediaScanner = new Scanner(System.in);
+								int mediaID = scanner.nextInt();
 								Media mediaFound = store.idSearch(mediaID);
 								store.removeMedia(mediaFound);
 								System.out.println("The store has been updated. There are currently " + store.itemsInStore.size() + " media in the store.");

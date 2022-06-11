@@ -3,8 +3,10 @@ package hust.soict.dsai.aims.store;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import hust.soict.dsai.aims.media.CompactDisc;
 import hust.soict.dsai.aims.media.DigitalVideoDisc;
 import hust.soict.dsai.aims.media.Media;
+import hust.soict.dsai.aims.media.Playable;
 import hust.soict.dsai.aims.utils.MediaUtils;
 
 public class Store {
@@ -94,7 +96,24 @@ public class Store {
 		for (Media medium: itemsInStore) {
 			System.out.println(medium);
 		}
-
+	}
+		
+	public void printPlayableMedia() {
+		for (Media media: itemsInStore) {
+			if (media instanceof Playable) {
+				System.out.println(media);
+			}
+		}
+	}
+	
+	public void playID(int id) {
+		Media mediaFound = this.idSearch(id);
+		if (mediaFound instanceof Playable) {
+			((Playable) mediaFound).play();
+		}
+		else {
+			System.out.println("The chosen medium is not playable");
+		}
 	}
 
 }
