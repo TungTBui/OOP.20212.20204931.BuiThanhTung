@@ -2,65 +2,96 @@ package hust.soict.dsai.aims.aims;
 import java.util.ArrayList;
 import java.util.Scanner;
 import hust.soict.dsai.aims.cart.Cart;
+import hust.soict.dsai.aims.media.Book;
 import hust.soict.dsai.aims.media.CompactDisc;
 import hust.soict.dsai.aims.media.DigitalVideoDisc;
 import hust.soict.dsai.aims.media.Media;
+import hust.soict.dsai.aims.media.Track;
 import hust.soict.dsai.aims.store.Store;
 import hust.soict.dsai.aims.utils.MemoryDaemon;
 
 public class Aims {
-
-	public static Scanner scanner = new Scanner(System.in);
 	
 	public static void main(String[] args) {
 		
-//		MemoryDaemon memoryDaemon = new MemoryDaemon();
-//		memoryDaemon.run();
-		Thread daemonThread = new Thread(new MemoryDaemon());
-		daemonThread.setDaemon(true);
-		daemonThread.start();
-		
-		Store store = new Store();
+//		Thread daemonThread = new Thread(new MemoryDaemon());
+//		daemonThread.setDaemon(true);
+//		daemonThread.start();
 		
 		DigitalVideoDisc dvd1 = new DigitalVideoDisc("The Lion King",
 				"Animation", "Roger Allers", 87, 19.95f);
-		store.addMedia(dvd1);
 		
 		DigitalVideoDisc dvd2 = new DigitalVideoDisc("Star Wars",
 				"Science Fiction", "George Lucas", 87, 24.95f);
-		store.addMedia(dvd2);
 		
 		DigitalVideoDisc dvd3 = new DigitalVideoDisc("Aladin",
 				"Animation", 18.99f);
-		store.addMedia(dvd3);
 		
 		DigitalVideoDisc dvd4 = new DigitalVideoDisc("Princess Mononoke",
 				"Animation", "Hayao Miyazaki", 18.99f);
-		store.addMedia(dvd4);
 		
 		DigitalVideoDisc dvd5 = new DigitalVideoDisc("Spirited Away",
 				"Animation", "Hayao Miyazaki", 18.15f);
-		store.addMedia(dvd5);
 		
 		DigitalVideoDisc dvd6 = new DigitalVideoDisc("Tenet",
 				"Action", "Christopher Nolan", 22.45f);
-		store.addMedia(dvd6);
 		
 		DigitalVideoDisc dvd7 = new DigitalVideoDisc("2001: A Space Odyssey",
 				"Science Fiction", "Stanley Kubrick", 15.99f);
-		store.addMedia(dvd7);
 		
 		DigitalVideoDisc dvd8 = new DigitalVideoDisc("Taxi Driver",
 				"Action", "Martin Scorsese", 14.59f);
-		store.addMedia(dvd8);
 		
 		DigitalVideoDisc dvd9 = new DigitalVideoDisc("Catch Me If You Can",
 				"Action", "Steven Spielberg", 15.22f);
-		store.addMedia(dvd9);
 		
 		DigitalVideoDisc dvd10 = new DigitalVideoDisc("Pulp Fiction",
 				"Comedy & Action", "Quentin Tarantino", 20.99f);
+		
+		CompactDisc cd = new CompactDisc("Twin Fantasy", "Rock", 11.95f, "Car Seat Headrest");
+		
+		Track track1 = new Track("My Boy (Twin Fantasy)", 3);
+		Track track2 = new Track("Beach Life-In-Death", 12);
+		Track track3 = new Track("Stop Smoking", 1);
+		Track track4 = new Track("Sober To Death", 5);
+		Track track5 = new Track("Nervous Young Inhumans", 4);
+		Track track6 = new Track("Bodys", 6);
+		Track track7 = new Track("Cute Thing", 5);
+		Track track8 = new Track("High to Death", 6);
+		Track track9 = new Track("Famous Prophets (Minds)", 10);
+		Track track10 = new Track("Twin Fantasy (Those Boys)", 6);
+		
+		cd.addTrack(track1);
+		cd.addTrack(track2);
+		cd.addTrack(track3);
+		cd.addTrack(track4);
+		cd.addTrack(track5);
+		cd.addTrack(track6);
+		cd.addTrack(track7);
+		cd.addTrack(track8);
+		cd.addTrack(track9);
+		cd.addTrack(track10);
+
+		Book book = new Book("Why we sleep", "Self-help", 15.45f);	
+		book.addAuthor("Matthew Walker");
+		book.addAuthor("James Walker");
+		book.setContent("Do you think you got enough sleep this past week? Can you recall the last time you woke up feeling refreshed?");
+
+		
+		Store store = new Store();
+		store.addMedia(dvd1);
+		store.addMedia(dvd2);
+		store.addMedia(dvd3);
+		store.addMedia(dvd4);
+		store.addMedia(dvd5);
+		store.addMedia(dvd6);
+		store.addMedia(dvd7);
+		store.addMedia(dvd8);
+		store.addMedia(dvd9);
 		store.addMedia(dvd10);
+		store.addMedia(cd);
+		store.addMedia(book);
+		
 		
 		Cart cart = new Cart();
 		cart.addMedia(dvd10);
@@ -103,7 +134,7 @@ public class Aims {
 		System.out.println("Options: ");
 		System.out.println("--------------------------------");
 		System.out.println("1. Filter Media in cart");
-		System.out.println("2. Sort Media cart");
+		System.out.println("2. Sort Media in cart");
 		System.out.println("3. Remove medium from cart");
 		System.out.println("4. Place order");
 		System.out.println("0. Back");
@@ -147,7 +178,7 @@ public class Aims {
 	// return the chosen option and check its validity
 	public static int chooseOption(int numOfOptions) {
 		boolean done = false;
-//		scanner = new Scanner(System.in);
+		Scanner scanner = new Scanner(System.in);
 		int option = 0;
 		while (!done) {
 			try {
@@ -202,15 +233,15 @@ public class Aims {
 					int filterOption = chooseOption(3);
 					if (filterOption == 1) {
 						System.out.println("Enter the ID of the DVD you want to filter.");
-//						Scanner filterScanner = new Scanner(System.in);
-						int id = scanner.nextInt();
+						Scanner filterScanner = new Scanner(System.in);
+						int id = filterScanner.nextInt();
 						cart.idSearch(id);
 						
 					}
 					else if (filterOption == 2) {
 						System.out.println("Enter the title of the DVD you want to filter.");
-//						Scanner filterScanner = new Scanner(System.in);
-						String title = scanner.nextLine();
+						Scanner filterScanner = new Scanner(System.in);
+						String title = filterScanner.nextLine();
 						cart.titleSearch(title);
 						
 					}
@@ -233,8 +264,8 @@ public class Aims {
 				}
 				case(3): {
 					System.out.println("Enter the title of the DVD you want to remove.");
-//					Scanner titleScanner = new Scanner(System.in);
-					String title = scanner.nextLine();
+					Scanner titleScanner = new Scanner(System.in);
+					String title = titleScanner.nextLine();
 					ArrayList<Media> mediaFound = cart.titleSearch(title);
 					for (Media media: mediaFound) {
 						cart.removeMedia(media);
@@ -309,8 +340,8 @@ public class Aims {
 							}
 							case(1): {
 								System.out.println("Please enter the title of that medium");
-//								Scanner mediaScanner = new Scanner(System.in);
-								String mediaTitle = scanner.nextLine();
+								Scanner mediaScanner = new Scanner(System.in);
+								String mediaTitle = mediaScanner.nextLine();
 								ArrayList<Media> mediaFound = store.titleSearch(mediaTitle);
 
 								if (mediaFound.size() > 0) {
@@ -339,8 +370,8 @@ public class Aims {
 		
 							case(2): {
 								System.out.println("Please enter the title of the medium you want to add");
-//								Scanner mediaScanner = new Scanner(System.in);
-								String mediaTitle = scanner.nextLine();
+								Scanner mediaScanner = new Scanner(System.in);
+								String mediaTitle = mediaScanner.nextLine();
 								ArrayList<Media> mediaFound = store.titleSearch(mediaTitle);
 								addMedia(cart, mediaFound);
 								System.out.println("The cart has been updated. There are currently " + cart.qtyOrdered + " media in the cart.");
@@ -355,7 +386,8 @@ public class Aims {
 								System.out.println("Here's the list of media that you could play:");
 								store.printPlayableMedia();
 								System.out.println("Please select the ID of the media you want to play");
-								int playID = scanner.nextInt();
+								Scanner idScanner = new Scanner(System.in);
+								int playID = idScanner.nextInt();
 								store.playID(playID);
 								break;
 							}
@@ -376,22 +408,20 @@ public class Aims {
 							}
 							case(1): {
 								System.out.println("Please enter the title of the Medium you want to add");
-//								Scanner mediaScanner = new Scanner(System.in);
-								String mediaTitle = scanner.nextLine();
+								Scanner mediaScanner = new Scanner(System.in);
+								String mediaTitle = mediaScanner.nextLine();
 								DigitalVideoDisc media = new DigitalVideoDisc(mediaTitle);
 								store.addMedia(media);
-								System.out.println("The store has been updated. There are currently " + store.itemsInStore.size() + " media in the store.");
-							
+								System.out.println("The store has been updated. There are currently " + store.itemsInStore.size() + " media in the store.");		
 								break;
 							}
 							case(2): {
 								System.out.println("Please enter the id of the medium you want to remove");
-//								Scanner mediaScanner = new Scanner(System.in);
-								int mediaID = scanner.nextInt();
+								Scanner idScanner = new Scanner(System.in);
+								int mediaID = idScanner.nextInt();
 								Media mediaFound = store.idSearch(mediaID);
 								store.removeMedia(mediaFound);
-								System.out.println("The store has been updated. There are currently " + store.itemsInStore.size() + " media in the store.");
-								
+								System.out.println("The store has been updated. There are currently " + store.itemsInStore.size() + " media in the store.");							
 								break;
 							}
 						

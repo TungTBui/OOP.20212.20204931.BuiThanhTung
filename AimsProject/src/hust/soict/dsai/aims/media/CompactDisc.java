@@ -46,11 +46,20 @@ public class CompactDisc extends Disc implements Playable{
 
 	@Override
 	public void play() {
-		System.out.println(String.format("Compact Disc [%s] - [%s] - [%s]", this.getTitle(), this.getCategory(), this.getArtist()));
+		System.out.println(String.format("Compact Disc [%s] - [%s] - [%s]- [Length: %d] - [ID: %d]", this.getTitle(), this.getCategory(), this.getArtist(), this.getLength(), this.getId()));
 		System.out.println("Playing Compact disc.......... ");
 		for (Track track: tracks) {
 			track.play();
 		}
+	}
+	
+	public String toString() {
+		StringBuffer cdString = new StringBuffer();
+		cdString.append(String.format("Compact Disc: [%s] - [%s] - [%s] - [Length: %d] - [%.2f$] - [ID: %d]", this.getTitle(), this.getCategory(), this.getArtist(), this.getLength(), this.getCost(), this.getId()));
+		for (Track track: tracks) {
+			cdString.append("\n" + track.toString());
+		}
+		return cdString.toString();
 	}
 
 }

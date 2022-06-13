@@ -1,6 +1,8 @@
 package hust.soict.dsai.aims.cart;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Iterator;
 
 import hust.soict.dsai.aims.media.DigitalVideoDisc;
 import hust.soict.dsai.aims.media.Media;
@@ -41,24 +43,27 @@ public class Cart {
 	}
 	
 	public ArrayList<Media> sortByCost() {
-		MediaUtils.sortByTitle(itemsOrdered);
-		MediaUtils.sortByCost(itemsOrdered);
-		System.out.println("Sort by cost: ");
-		for (Media media: itemsOrdered) {
-			System.out.print(media.getTitle() + " (id = " + media.getId() + ", cost " + media.getCost() + ")"  + " - ");
+		Collections.sort(itemsOrdered, Media.COMPARE_BY_COST_TITLE);
+		Iterator iterator = itemsOrdered.iterator();
+			System.out.println("-----------------------");
+			System.out.println("The DVDs in sorted order (cost -> title) are: ");
+			while (iterator.hasNext()) {
+				System.out.println(((DigitalVideoDisc) iterator.next()));
+			}
+			System.out.println("-----------------------");
+			return itemsOrdered;
 		}
-		System.out.print("\n");
-		return itemsOrdered;
-	}
 	
 	public ArrayList<Media> sortByTitle() {
-		MediaUtils.sortByCost(itemsOrdered);
-		MediaUtils.sortByTitle(itemsOrdered);
-		System.out.println("Sort by title: ");
-		for (Media media: itemsOrdered) {
-			System.out.print(media.getTitle() + " (id = " + media.getId() + ")"  + " - ");
+		Collections.sort(itemsOrdered, Media.COMPARE_BY_TITLE_COST);
+		
+		Iterator iterator = itemsOrdered.iterator();
+		System.out.println("-----------------------");
+		System.out.println("The DVDs in sorted order (titlte -> cost) are: ");
+		while (iterator.hasNext()) {
+			System.out.println(((DigitalVideoDisc) iterator.next()));
 		}
-		System.out.print("\n");
+		System.out.println("-----------------------");
 		return itemsOrdered;
 	}
 	

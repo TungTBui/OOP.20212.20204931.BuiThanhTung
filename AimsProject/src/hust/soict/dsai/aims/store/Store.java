@@ -83,7 +83,6 @@ public class Store {
 		}
 		else {
 			System.out.println("The media with the ID " + id + " is found");
-		 
 		}
 		return foundMedia; 
 	}

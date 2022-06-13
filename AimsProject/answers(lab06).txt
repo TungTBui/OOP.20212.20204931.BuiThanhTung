@@ -1,0 +1,15 @@
+Question 1: When overriding the equals() method of the Object class, you will have to cast the Object parameter obj to the type of Object that you are dealing with. 
+For example, in the Media class, you must cast the Object obj to a Media, and then check the equality of the two objects’ attributes as the above
+requirements (i.e. id for Media; title and length for Track). If the passing object is not an instance of Media, what happens?
+-> Answer: We will return false
+
+Question 2: The Comparable interface is part of the Java class library. It is in java.lang package, so no import statement is needed. Please open the Java docs to see the information of 
+this interface. Which method(s) do you need to implement from this interface?
+-> Answer: We need to implement the method compareTo 
+
+Question 3: Create an ArrayList of Media, then add some media (CD, DVD, or Book) to the list. Iterate through the list and print out the information of the media by using the toString() 
+method. Observe what happens and explain it in detail.
+-> Answer: Each media will use the toString() method that it has overidden (i.e. a CD will use the CD's toString() method). The reason is that an override function "replaces" a function 
+inherited from the base class, but it would be called when an instance of its class has a different type through polymorphism. Therefore, if we call toSTring() on each media's type while 
+it is an Media object, the version of toSring() that will be used is the one from that media type's class even when the class instance's true type is hidden behind polymorphism.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   

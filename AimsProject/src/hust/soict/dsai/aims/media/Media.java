@@ -1,8 +1,13 @@
 package hust.soict.dsai.aims.media;
 
 import java.time.LocalDate;
+import java.util.Comparator;
+import java.util.function.Function;
 
-public abstract class Media {
+import hust.soict.dsai.aims.utils.MediaComparatorByCostTitle;
+import hust.soict.dsai.aims.utils.MediaComparatorByTitleCost;
+
+public abstract class Media implements Comparable<Media>{
 
 	private int id;
 	private String title;
@@ -10,7 +15,9 @@ public abstract class Media {
 	private float cost;
 	private LocalDate dateAdded;
 	private static int nbMedias = 0;
-
+	public static final Comparator<Media> COMPARE_BY_TITLE_COST = new MediaComparatorByTitleCost();
+	public static final Comparator<Media> COMPARE_BY_COST_TITLE = new MediaComparatorByCostTitle();
+		
 	public int getId() {
 		return id;
 	}
@@ -67,7 +74,7 @@ public abstract class Media {
 	}
 	
 	public String toString() {
-		return title + " (Category: " + getCategory() + ", id = " + id; 
+		return title + " (Category: " + getCategory() + "), id = " + id; 
 	}
 
 	public boolean equals(Object obj) {
@@ -76,6 +83,15 @@ public abstract class Media {
 		}
 		else {
 			return this.getId() == ((Media) obj).getId();
+		}
+	}
+	
+	public int compareTo(Media media) {
+		if (this.getTitle().compareTo(media.getTitle()) == 0) {
+			return this.getCategory().compareTo(media.getCategory());
+		}
+		else {
+			return this.getTitle().compareTo(media.getTitle());
 		}
 	}
 }

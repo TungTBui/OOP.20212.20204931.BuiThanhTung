@@ -1,7 +1,7 @@
 package hust.soict.dsai.aims.media;
 import java.time.LocalDate;
 
-public class DigitalVideoDisc extends Media implements Playable{
+public class DigitalVideoDisc extends Media implements Playable {
 
 	private String director;
 	private int length;
@@ -21,7 +21,6 @@ public class DigitalVideoDisc extends Media implements Playable{
 //		dateAdded = LocalDate.now();
 	}
 
-
 	public DigitalVideoDisc(String title, String category, float cost) {
 		super(title, category, cost);
 //		dateAdded = LocalDate.now();
@@ -40,17 +39,18 @@ public class DigitalVideoDisc extends Media implements Playable{
 
 	}
 	public String toString() {
-		return this.getTitle() + " (Category: " + getCategory() + ") directed by " + director+ ", id = " + this.getId(); 
+		return String.format("DVD: [%s] - [%s] - [%s] - [Length: %d] - [%.2f$] - [ID: %d]", this.getTitle(), this.getCategory(), this.getDirector(), this.getLength(), this.getCost(), this.getId());
 	}
+	
 	@Override
 	public void play() {
 		if (this.getLength() <= 0 ) {
-			System.out.println("Can't play " + this.getTitle() + " since the length of the DVD must be > 0");
+			System.out.println("Can't play " + this.getTitle() + " since the length of this DVD is smaller or equal to 0");
 		}
 		else {
 			System.out.println("Playing DVD: " + this.getTitle());
 			System.out.println("DVD length: " + this.getLength());
 		}
 	}
-	
+		
 } 

@@ -1,7 +1,8 @@
-package hust.soict.dsai.aims.aims;
+package hust.soict.dsai.test.cart;
 
 import hust.soict.dsai.aims.cart.Cart;
 import hust.soict.dsai.aims.media.DigitalVideoDisc;
+import hust.soict.dsai.aims.media.Track;
 
 
 public class DiskTest {
@@ -27,6 +28,7 @@ public class DiskTest {
 		
 		DigitalVideoDisc dvd5 = new DigitalVideoDisc("Spirited Away",
 				"Animation", "Hayao Miyazaki", 18.15f);
+		
 		cart.addMedia(dvd5);
 		
 		cart.print();
@@ -42,7 +44,7 @@ public class DiskTest {
 		cart.titleSearch("Spirited Away");
 		cart.titleSearch("awAy");
 		cart.titleSearch("Spider Man: Far From Home");
+		
 	}
-	//Section 9
 
 }
