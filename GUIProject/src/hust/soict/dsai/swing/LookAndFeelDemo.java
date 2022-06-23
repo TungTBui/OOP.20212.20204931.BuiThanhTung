@@ -40,10 +40,16 @@ public class LookAndFeelDemo extends JFrame{
 		
 		// Create the combo Box
 		LookAndFeelInfo[] lafInfos = UIManager.getInstalledLookAndFeels();
-		String[] lafNames = new String[lafInfos.length];
+		String cplaf = UIManager.getCrossPlatformLookAndFeelClassName();
+		String syslaf = UIManager.getSystemLookAndFeelClassName();
+		
+		String[] lafNames = new String[lafInfos.length+2];
 		for (int i = 0; i < lafInfos.length; i++) {
 			lafNames[i] = lafInfos[i].getName();
 		}
+		lafNames[lafInfos.length] = "Java";
+		lafNames[lafInfos.length+1] = "System";
+				
 		JComboBox cbLookAndFeel = new JComboBox(lafNames);
 		cp.add(cbLookAndFeel);
 		
@@ -55,12 +61,20 @@ public class LookAndFeelDemo extends JFrame{
 			public void actionPerformed(ActionEvent ae) {
 				int index = cbLookAndFeel.getSelectedIndex();
 				try {
-					UIManager.setLookAndFeel(lafInfos[index].getClassName());
+					if (index < lafInfos.length) {
+						UIManager.setLookAndFeel(lafInfos[index].getClassName());
+					}
+					else if (index == lafInfos.length) {
+						UIManager.setLookAndFeel(cplaf);
+					}
+					else if (index == lafInfos.length + 1) {
+						UIManager.setLookAndFeel(syslaf);
+					}
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 				SwingUtilities.updateComponentTreeUI(frame);
-				setTitle(lafInfos[index].getName() + " Look And Feel");
+				setTitle(lafNames[index] + " Look And Feel");
 			}
 			
 		});

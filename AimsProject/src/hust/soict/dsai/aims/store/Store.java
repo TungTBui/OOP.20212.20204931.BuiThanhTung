@@ -10,9 +10,7 @@ import hust.soict.dsai.aims.media.Playable;
 import hust.soict.dsai.aims.utils.MediaUtils;
 
 public class Store {
-	
-	//Section 10
-	
+		
 	public ArrayList<Media> itemsInStore = new ArrayList<Media>();
 	public int numItemsInStore;
 	
@@ -25,7 +23,10 @@ public class Store {
 			System.out.println(media.getTitle() + " has been added to the store.");
 			numItemsInStore ++;
 		}
-
+	}
+	
+	public ArrayList<Media> getItemsInStore() {
+		return itemsInStore;
 	}
 	
 	public int removeMedia(Media media) {
@@ -108,7 +109,7 @@ public class Store {
 	public void playID(int id) {
 		Media mediaFound = this.idSearch(id);
 		if (mediaFound instanceof Playable) {
-			((Playable) mediaFound).play();
+			System.out.println(((Playable) mediaFound).play());
 		}
 		else {
 			System.out.println("The chosen medium is not playable");

@@ -19,9 +19,9 @@ public class Track implements Playable, Comparable<Track>{
 	}
 
 	@Override
-	public void play() {
-		System.out.println("Playing track: " + this.getTitle());
-		System.out.println("Track length: " + this.getLength());	
+	public String play() {
+		String returnPlay = "Playing track: " + this.getTitle() + "\nTrack length: " + this.getLength();
+		return returnPlay;	
 	}
 
 	public String toString() {
