@@ -1,8 +1,11 @@
 
-Compare the top-level containers in Swing and AWT:
-
-Compare the class name of components in AWT and the corresponding class’s name in Swing:
-
-Compare the event-handling of Swing and AWT applications:
-
-The resulting appearances of the applications developed using Swing and AWT might be different as well.Make comparisons
+-Compare the top-level containers in Swing and AWT:
+-> AWT: Frame, Dialog, Applet
+-> Swing: JFrame, JDialog, JApplet
+-Compare the class name of components in AWT and the corresponding class’s name in Swing:
+-> The class name of components in Swing have the letter "J" at the start compared to AWT (i.e. JPanel(Swing) - Panel(AWT))
+- Compare the event-handling of Swing and AWT applications:
+-> They are pretty much the same.
+- The resulting appearances of the applications developed using Swing and AWT might be different as well. Make comparisons
+-> Personally, the overall apprearances of Swing and AWT components look quite similiar.That being said, I find the Swing components look more appealing and can be more flexible since Swing components can alter their apprearances due to the fact that
+Swing components can change their appearance based on the current "look and feel" library that's being used. 
