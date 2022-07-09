@@ -51,10 +51,12 @@ public abstract class Media implements Comparable<Media>{
 		if (title == null || title == "") {
 			throw new NullPointerException("Title cannot be empty");
 		}
-		if (category == null || category == "") {
+		else if (category == null || category == "") {
 			throw new NullPointerException("Category cannot be empty");
 		}
-		
+		else if (cost <= 0) {
+			throw new NegativeValueException("Cost must be > 0");
+		}
 		else {
 			try {
 				this.title = title;
@@ -63,9 +65,6 @@ public abstract class Media implements Comparable<Media>{
 				dateAdded = LocalDate.now();
 				nbMedias ++;
 				this.id = nbMedias;
-				if (this.cost <= 0) {
-					throw new NegativeValueException("Cost must be > 0");
-				}
 			}
 			catch (NumberFormatException e) {
 				throw new NumberFormatException("Cost must be a number");

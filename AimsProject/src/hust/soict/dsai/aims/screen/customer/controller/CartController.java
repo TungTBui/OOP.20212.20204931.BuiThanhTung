@@ -103,7 +103,6 @@ public class CartController {
 		} catch (PlayerException e) {
 			System.err.println(e.getMessage());
 			JOptionPane.showMessageDialog(null, e.getMessage());
-			e.printStackTrace();
 		}
     }
 
