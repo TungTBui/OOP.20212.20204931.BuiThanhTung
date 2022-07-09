@@ -1,11 +1,12 @@
 package hust.soict.dsai.test.store;
 
+import hust.soict.dsai.aims.exception.NegativeValueException;
 import hust.soict.dsai.aims.media.DigitalVideoDisc;
 import hust.soict.dsai.aims.store.Store;
 
 public class StoreTest {
 	
-	public static void main (String[] args) {
+	public static void main (String[] args) throws NullPointerException, NegativeValueException {
 	//Test section 10
 		
 		Store store = new Store();

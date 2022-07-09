@@ -1,10 +1,11 @@
 package hust.soict.dsai.test.book;
 
+import hust.soict.dsai.aims.exception.NegativeValueException;
 import hust.soict.dsai.aims.media.Book;
 
 public class BookTest {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws NullPointerException, NegativeValueException {
 		
 		Book book = new Book("Why we sleep", "Self-help", 15.45f);
 		

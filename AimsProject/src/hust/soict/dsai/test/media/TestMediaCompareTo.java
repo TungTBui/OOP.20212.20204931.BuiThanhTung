@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import hust.soict.dsai.aims.exception.NegativeValueException;
 import hust.soict.dsai.aims.media.Book;
 import hust.soict.dsai.aims.media.CompactDisc;
 import hust.soict.dsai.aims.media.DigitalVideoDisc;
@@ -14,7 +15,7 @@ import hust.soict.dsai.aims.media.Track;
 
 public class TestMediaCompareTo {
 	
-	public static void main (String[] args) {
+	public static void main (String[] args) throws NullPointerException, NegativeValueException {
 
 		DigitalVideoDisc dvd1 = new DigitalVideoDisc("The Lion King",
 				"Animation", "Roger Allers", 87, 19.95f);

@@ -17,7 +17,7 @@ public class CompactDisc extends Disc implements Playable{
 	public CompactDisc(String title, String category, float cost, String artist) throws NullPointerException, NegativeValueException {
 		super(title, category, cost);
 	
-		if (artist == null || artist == "") {
+		if (artist == null || artist.isBlank()) {
 			throw new NullPointerException("Artist cannot be empty");
 		}
 		

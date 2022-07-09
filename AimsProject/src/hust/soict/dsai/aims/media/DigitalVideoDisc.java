@@ -31,7 +31,7 @@ public class DigitalVideoDisc extends Media implements Playable {
 	
 	public DigitalVideoDisc(String title, String category, String director, float cost) throws NullPointerException, NegativeValueException {
 		super(title, category, cost);
-		if (director == null || director == "") {
+		if (director == null || director.isBlank()) {
 			throw new NullPointerException("Director cannot be empty");
 		}
 		else {
@@ -41,13 +41,24 @@ public class DigitalVideoDisc extends Media implements Playable {
 	}
 	public DigitalVideoDisc(String title, String category, String director, int length, float cost) throws NullPointerException, NegativeValueException {
 		super(title, category, cost);
-		if (director == null || director == "") {
+		if (director == null || director.isBlank()) {
 			throw new NullPointerException("Director cannot be empty");
 		}
 		else {
 			this.director = director;
 		}
-		this.length = length;
+		try {
+			if (this.length < 0) {
+				throw new NegativeValueException("Cost must be > 0");
+			}
+			else {
+				this.length = length;
+			}
+		}
+		catch (NumberFormatException e) {
+			throw new NumberFormatException("Length must be a number");
+		}
+
 //		dateAdded = LocalDate.now();
 
 	}

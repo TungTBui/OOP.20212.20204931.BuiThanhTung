@@ -1,5 +1,8 @@
 package hust.soict.dsai.aims.media;
 
+import java.time.LocalDate;
+
+import hust.soict.dsai.aims.exception.NegativeValueException;
 import hust.soict.dsai.aims.exception.PlayerException;
 
 public class Track implements Playable, Comparable<Track>{
@@ -15,9 +18,22 @@ public class Track implements Playable, Comparable<Track>{
 		return length;
 	}
 	
-	public Track(String title, int length) {
-		this.title = title;
-		this.length = length;
+	public Track(String title, int length) throws NegativeValueException, NullPointerException {
+		if (title == null || title == "") {
+			throw new NullPointerException("Title cannot be empty");
+		}
+		else if (length < 0) {
+			throw new NegativeValueException("Length cannot be negative");
+		}
+		else {
+			this.title = title;
+			try {
+				this.length = length;
+			} catch (NumberFormatException e) {
+				throw new NumberFormatException("Length must be a number");
+			}
+		}
+
 	}
 
 	@Override

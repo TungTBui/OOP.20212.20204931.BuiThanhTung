@@ -73,10 +73,16 @@ public abstract class Media implements Comparable<Media>{
 	}
 
 	public Media(String title) {
-		this.title = title;
-		dateAdded = LocalDate.now();
-		nbMedias ++;
-		this.id = nbMedias;
+		if (title == null || title == "") {
+			throw new NullPointerException("Title cannot be empty");
+		}
+		else {
+			this.title = title;
+			dateAdded = LocalDate.now();
+			nbMedias ++;
+			this.id = nbMedias;
+		}
+		
 	}
 
 	public boolean isMatch(String title) {
@@ -94,25 +100,31 @@ public abstract class Media implements Comparable<Media>{
 		return title + " (Category: " + getCategory() + "), id = " + id; 
 	}
 
-	public boolean equals(Object obj) {
-		try {
-			if (obj instanceof Media) {
-				return this.getId() == ((Media) obj).getId();
-			}
-		} catch (ClassCastException e) {
-			System.err.println(e.getMessage());
-		} catch (NullPointerException e) {
-			System.err.println("ERROR: NUll OBJECT");
+	public boolean equals(Object obj) throws NullPointerException, ClassCastException{
+		if (obj == null) {
+			throw new NullPointerException("ERROR: NUll OBJECT");
 		}
-		return false;
-	}
-	
-	public int compareTo(Media media) {
-		if (this.getTitle().compareTo(media.getTitle()) == 0) {
-			return this.getCategory().compareTo(media.getCategory());
+		else if (!(obj instanceof Media)) {
+			throw new ClassCastException("ERROR: CANNOT CAST OBJECT");
 		}
 		else {
-			return this.getTitle().compareTo(media.getTitle());
+			return this.getTitle() == ((Media) obj).getTitle() & this.getCost() == ((Media) obj).getCost();
+		}		
+	}
+	
+	public int compareTo(Media media) throws NullPointerException{
+		if (media == null) {
+			throw new NullPointerException("ERROR: NUll MEDIA");
 		}
+		else {	
+			if (this.getTitle().compareTo(media.getTitle()) == 0) {
+				return this.getCategory().compareTo(media.getCategory());
+			}
+			else {
+				return this.getTitle().compareTo(media.getTitle());
+			}
+
+		}
+			
 	}
 }

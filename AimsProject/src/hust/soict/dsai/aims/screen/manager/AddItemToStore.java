@@ -236,7 +236,11 @@ public class AddItemToStore extends JPanel{
                         JOptionPane.YES_NO_OPTION);
                 if (output == JOptionPane.YES_OPTION) {
                 	for (int i = 0; i < numberOfTracks; i++) {
-                		cd.addTrack(new Track(textFields[2*i].getText(), Integer.parseInt(textFields[2*i+1].getText())));
+                		try {
+							cd.addTrack(new Track(textFields[2*i].getText(), Integer.parseInt(textFields[2*i+1].getText())));
+						} catch (NumberFormatException | NullPointerException | NegativeValueException e1) {
+							e1.printStackTrace();
+						}
                 	}
                 	JOptionPane.showMessageDialog(null, "The tracks have been successfully added to the CD"); 
                 } else if (output == JOptionPane.NO_OPTION) {

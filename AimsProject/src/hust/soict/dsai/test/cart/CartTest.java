@@ -1,10 +1,13 @@
 package hust.soict.dsai.test.cart;
+import javax.naming.LimitExceededException;
+
 import hust.soict.dsai.aims.cart.Cart;
+import hust.soict.dsai.aims.exception.NegativeValueException;
 import hust.soict.dsai.aims.media.DigitalVideoDisc;
 
 public class CartTest {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws NullPointerException, NegativeValueException, LimitExceededException {
 		Cart cart = new Cart();
 		
 		DigitalVideoDisc dvd1 = new DigitalVideoDisc("The Lion King",

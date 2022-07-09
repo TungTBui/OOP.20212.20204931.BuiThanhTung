@@ -25,7 +25,7 @@ public class Disc extends Media {
 			}
 		}
 		catch (NumberFormatException e) {
-			throw new NumberFormatException("Cost must be a number");
+			throw new NumberFormatException("Length must be a number");
 		}
 	}
 	
