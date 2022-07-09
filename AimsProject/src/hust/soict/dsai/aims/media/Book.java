@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import hust.soict.dsai.aims.exception.NegativeValueException;
+
 public class Book extends Media {
 
 	private List<String> authors = new ArrayList<String>();
@@ -15,7 +17,7 @@ public class Book extends Media {
 	private List<String> contentTokens;
 	private Map<String, Integer> wordFrequency = new TreeMap<>();
 	
-	public Book(String title, String category, float cost) {
+	public Book(String title, String category, float cost) throws NullPointerException, NegativeValueException {
 		super(title, category, cost);
 	}
 

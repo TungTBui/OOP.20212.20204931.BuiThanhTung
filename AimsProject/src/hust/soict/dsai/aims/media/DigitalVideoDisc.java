@@ -1,6 +1,9 @@
 package hust.soict.dsai.aims.media;
 import java.time.LocalDate;
 
+import hust.soict.dsai.aims.exception.NegativeValueException;
+import hust.soict.dsai.aims.exception.PlayerException;
+
 public class DigitalVideoDisc extends Media implements Playable {
 
 	private String director;
@@ -21,19 +24,29 @@ public class DigitalVideoDisc extends Media implements Playable {
 //		dateAdded = LocalDate.now();
 	}
 
-	public DigitalVideoDisc(String title, String category, float cost) {
+	public DigitalVideoDisc(String title, String category, float cost) throws NullPointerException, NegativeValueException {
 		super(title, category, cost);
 //		dateAdded = LocalDate.now();
 	}
 	
-	public DigitalVideoDisc(String title, String category, String director, float cost) {
+	public DigitalVideoDisc(String title, String category, String director, float cost) throws NullPointerException, NegativeValueException {
 		super(title, category, cost);
-		this.director = director;
+		if (director == null || director == "") {
+			throw new NullPointerException("Director cannot be empty");
+		}
+		else {
+			this.director = director;
+		}
 //		dateAdded = LocalDate.now();
 	}
-	public DigitalVideoDisc(String title, String category, String director, int length, float cost) {
+	public DigitalVideoDisc(String title, String category, String director, int length, float cost) throws NullPointerException, NegativeValueException {
 		super(title, category, cost);
-		this.director = director;
+		if (director == null || director == "") {
+			throw new NullPointerException("Director cannot be empty");
+		}
+		else {
+			this.director = director;
+		}
 		this.length = length;
 //		dateAdded = LocalDate.now();
 
@@ -43,12 +56,13 @@ public class DigitalVideoDisc extends Media implements Playable {
 	}
 	
 	@Override
-	public String play() {
-		if (this.getLength() <= 0 ) {
-			return ("Can't play " + this.getTitle() + " since the length of this DVD is smaller or equal to 0");
+	public String play() throws PlayerException {
+		
+		if (this.getLength() > 0 ) {
+			return "Playing DVD: " + this.getTitle() + " " + "\nDVD's length: " + this.getLength();
 		}
 		else {
-			return "Playing DVD: " + this.getTitle() + " " + "\nDVD's length: " + this.getLength();
+			throw new PlayerException("ERROR: DVD length is non-positive");
 		}
 	}
 		

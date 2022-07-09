@@ -3,6 +3,7 @@ package hust.soict.dsai.aims.store;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import hust.soict.dsai.aims.exception.PlayerException;
 import hust.soict.dsai.aims.media.CompactDisc;
 import hust.soict.dsai.aims.media.DigitalVideoDisc;
 import hust.soict.dsai.aims.media.Media;
@@ -109,7 +110,12 @@ public class Store {
 	public void playID(int id) {
 		Media mediaFound = this.idSearch(id);
 		if (mediaFound instanceof Playable) {
-			System.out.println(((Playable) mediaFound).play());
+			try {
+				System.out.println(((Playable) mediaFound).play());
+			} catch (PlayerException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		else {
 			System.out.println("The chosen medium is not playable");

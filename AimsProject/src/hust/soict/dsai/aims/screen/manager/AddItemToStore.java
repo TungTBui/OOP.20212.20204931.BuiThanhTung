@@ -19,6 +19,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import hust.soict.dsai.aims.exception.NegativeValueException;
 import hust.soict.dsai.aims.media.Book;
 import hust.soict.dsai.aims.media.CompactDisc;
 import hust.soict.dsai.aims.media.DigitalVideoDisc;
@@ -78,13 +79,25 @@ public class AddItemToStore extends JPanel{
                         JOptionPane.YES_NO_OPTION);
                 if (output == JOptionPane.YES_OPTION) {
                 	if (checkMediaType() == 0){
-                    	addToStore(new Book(textFields[0].getText(), textFields[1].getText(), Float.parseFloat(textFields[2].getText())));
+                    	try {
+							addToStore(new Book(textFields[0].getText(), textFields[1].getText(), Float.parseFloat(textFields[2].getText())));
+						} catch (NumberFormatException | NullPointerException | NegativeValueException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
                     	JOptionPane.showMessageDialog(null, "The Book [" + textFields[0].getText()+ "] has been successfully added to the store");  
                     	System.out.println("Book ne");
                 	}
                 	else if (checkMediaType() == 1) {
-                		CompactDisc addedCD = new CompactDisc(textFields[0].getText(), textFields[1].getText(), Float.parseFloat(textFields[2].getText()), textFields[3].getText());
-                    	addToStore(addedCD);
+                		CompactDisc addedCD = null;
+						try {
+							addedCD = new CompactDisc(textFields[0].getText(), textFields[1].getText(), Float.parseFloat(textFields[2].getText()), textFields[3].getText());
+							addToStore(addedCD);
+						} catch (NumberFormatException | NullPointerException | NegativeValueException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+                    	
                     	int cdOutput = JOptionPane.showConfirmDialog(null, 
                                 "The CD [" + textFields[0].getText()+ "] has been successfully added to the store" + "\nDo you want to add the tracks?", "Confirmation dialog",
                                 JOptionPane.YES_NO_OPTION);
@@ -96,7 +109,12 @@ public class AddItemToStore extends JPanel{
                     	System.out.println("CD ne");
                 	}
                 	else if (checkMediaType() == 2) {
-                    	addToStore(new DigitalVideoDisc(textFields[0].getText(), textFields[1].getText(), textFields[2].getText(), Integer.parseInt(textFields[3].getText()),Float.parseFloat(textFields[4].getText())));
+                    	try {
+							addToStore(new DigitalVideoDisc(textFields[0].getText(), textFields[1].getText(), textFields[2].getText(), Integer.parseInt(textFields[3].getText()),Float.parseFloat(textFields[4].getText())));
+						} catch (NumberFormatException | NullPointerException | NegativeValueException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
                     	JOptionPane.showMessageDialog(null, "The DVD [" + textFields[0].getText()+ "] has been successfully added to the store");  
                     	System.out.println("DVD ne");
                     }
@@ -249,80 +267,4 @@ public class AddItemToStore extends JPanel{
 	}
 }
 		
-//		addTrackMainPanel = new JPanel();
-//		addTrackMainPanel.setLayout(new GridBagLayout());
-//        GridBagConstraints c = new GridBagConstraints();
-//        c.fill = GridBagConstraints.HORIZONTAL;
-//        c.insets = new Insets(5, 10, 5, 10);  // top, left, bottom, right padding
-//        
-//        JTextField[] textFields = new JTextField[numberOfTracks*2];
-//        JLabel[] labels = new JLabel[numberOfTracks];
-//       
-//        for (int i = 0; i < labels.length; i++) {
-//        	titleTrack = new JLabel("Title: ");
-//            lengthTrack = new JLabel("Length: ");
-//        	c.gridx = 0;
-//        	c.gridy = 3*i;
-//        	labels[i] = new JLabel("Track " + (i+1) + ":");
-//        	addTrackMainPanel.add(labels[i], c);
-//        	c.gridx = 0;
-//        	c.gridy = 3*i+1;
-//        	addTrackMainPanel.add(titleTrack,c);
-//        	c.gridx = 1;
-//        	c.gridy = 3*i+1;
-//        	textFields[2*i] = new JTextField(15);
-//        	addTrackMainPanel.add(textFields[2*i], c);
-//        	c.gridx = 0;
-//        	c.gridy = 3*i+2;
-//        	addTrackMainPanel.add(lengthTrack,c);
-//        	c.gridx = 1;
-//        	c.gridy = 3*i+2;
-//        	textFields[2*i+1] = new JTextField(15);
-//        	addTrackMainPanel.add(textFields[2*i+1], c);
-//        }
-//        
-//        c.gridx=0;
-//        c.gridy=3 * numberOfTracks;
-//        c.gridwidth = 2;
-//        c.insets = new Insets(25, 10, 25, 10);
-//        
-//        
-//        buttonPanel = new JPanel(new GridBagLayout());
-//        
-//		addButton = addButton("Add these tracks to the CD");
-//		addButton.addActionListener(new ActionListener() {
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				int output = JOptionPane.showConfirmDialog(null, 
-//                        "Do you want to add these tracks to the CD", "Confirmation dialog",
-//                        JOptionPane.YES_NO_OPTION);
-//                if (output == JOptionPane.YES_OPTION) {
-//                	for (int i = 0; i < numberOfTracks; i++) {
-//                		cd.addTrack(new Track(textFields[2*i].getText(), Integer.parseInt(textFields[2*i+1].getText())));
-//                	}
-//                	JOptionPane.showMessageDialog(null, "The tracks have been successfully added to the CD"); 
-//                } else if (output == JOptionPane.NO_OPTION) {
-//                	System.out.println("No selected");
-//                }
-//			}
-//		});
-//		
-//		buttonPanel.add(addButton, new GridBagConstraints());
-//		addTrackMainPanel.add(buttonPanel, c);
-//		
-//        Font font = new Font("MS Sans Serif", Font.BOLD, 50);
-//        titleTrackLabel = new JLabel("ADD TRACKS TO CD");
-//        titleTrackLabel.setFont(font);
-//        titleTrackLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-//        
-//        GridBagConstraints gbc = new GridBagConstraints();
-//        gbc.insets = new Insets(35, 10, 35, 10);
-//        gbc.gridx = 0;
-//        gbc.gridy = 0;	
-//        add(titleTrackLabel, gbc);
-//        gbc.gridx = 0;
-//        gbc.gridy = 1;
-//        add(addTrackMainPanel, gbc);
-//        return addTrackMainPanel;
-//	}
 	

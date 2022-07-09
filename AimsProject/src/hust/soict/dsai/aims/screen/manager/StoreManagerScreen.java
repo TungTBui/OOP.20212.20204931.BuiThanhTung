@@ -20,8 +20,10 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import hust.soict.dsai.aims.exception.PlayerException;
 import hust.soict.dsai.aims.media.Book;
 import hust.soict.dsai.aims.media.CompactDisc;
 import hust.soict.dsai.aims.media.DigitalVideoDisc;
@@ -141,12 +143,25 @@ public class StoreManagerScreen extends JFrame implements ActionListener{
 			
 			if (media instanceof Playable) {
 				JButton playButton = new JButton("Play");
-				PlayDialog playMedia = new PlayDialog(media);
 				playButton.addActionListener(new ActionListener() {
 
 					@Override
-					public void actionPerformed(ActionEvent e) {
-						playMedia.setVisible(true);
+					public void actionPerformed(ActionEvent event) {
+						try {
+							if(media instanceof DigitalVideoDisc) {
+								DigitalVideoDisc d = (DigitalVideoDisc) media;
+								JOptionPane.showMessageDialog(null, d.play());
+							}
+							else if(media instanceof CompactDisc) {
+								CompactDisc c = (CompactDisc) media;
+								JOptionPane.showMessageDialog(null, c.play());
+							}
+
+						} catch (PlayerException e) {
+							System.err.println(e.getMessage());
+							JOptionPane.showMessageDialog(null, e.getMessage());
+							e.printStackTrace();
+						}
 					}
 					
 				});

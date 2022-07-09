@@ -6,6 +6,7 @@ import java.util.Comparator;
 
 import hust.soict.dsai.aims.media.DigitalVideoDisc;
 import hust.soict.dsai.aims.media.Media;
+import javafx.collections.ObservableList;
 
 public class MediaUtils {
 	
@@ -34,12 +35,12 @@ public class MediaUtils {
 		}
 	}
 	
-	public static ArrayList<Media> sortByCost(ArrayList<Media> media) {
-		Collections.sort(media, new sortByCostComparator());
-		return media;
+	public static ObservableList<Media> sortByCost(ObservableList<Media> itemsOrdered) {
+		Collections.sort(itemsOrdered, new sortByCostComparator());
+		return itemsOrdered;
 	}
 	
-	public static ArrayList<Media> sortByTitle(ArrayList<Media> media) {
+	public static ObservableList<Media> sortByTitle(ObservableList<Media> media) {
 		Collections.sort(media, new sortByTitleComparator());
 		return media;
 	}

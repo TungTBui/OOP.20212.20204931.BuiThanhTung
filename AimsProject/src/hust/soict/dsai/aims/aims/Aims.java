@@ -1,7 +1,11 @@
 package hust.soict.dsai.aims.aims;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import javax.naming.LimitExceededException;
+
 import hust.soict.dsai.aims.cart.Cart;
+import hust.soict.dsai.aims.exception.NegativeValueException;
 import hust.soict.dsai.aims.media.Book;
 import hust.soict.dsai.aims.media.CompactDisc;
 import hust.soict.dsai.aims.media.DigitalVideoDisc;
@@ -12,7 +16,7 @@ import hust.soict.dsai.aims.utils.MemoryDaemon;
 
 public class Aims {
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws NullPointerException, NegativeValueException {
 		
 //		Thread daemonThread = new Thread(new MemoryDaemon());
 //		daemonThread.setDaemon(true);
@@ -94,14 +98,18 @@ public class Aims {
 		
 		
 		Cart cart = new Cart();
-		cart.addMedia(dvd10);
-		cart.addMedia(dvd1);
-		cart.addMedia(dvd5);
-		cart.addMedia(dvd6);
-		
+		try {
+			cart.addMedia(dvd10);
+			cart.addMedia(dvd1);
+			cart.addMedia(dvd5);
+			cart.addMedia(dvd6);
+		} catch (LimitExceededException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
 		aimsProject(cart, store);
 		
-	
 	}
 	
 	// The main menu
@@ -280,7 +288,12 @@ public class Aims {
 					System.out.println("An order has been created");
 					if (cart.qtyOrdered >= 5) {
 						Media luckyItem = cart.getALuckyItem(store);
-						cart.addMedia(luckyItem);
+						try {
+							cart.addMedia(luckyItem);
+						} catch (LimitExceededException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 						cart.print();
 					}
 					
@@ -304,7 +317,12 @@ public class Aims {
 					break;
 				}
 				case(1): {
-					cart.addMedia(media);
+					try {
+						cart.addMedia(media);
+					} catch (LimitExceededException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					break;
 				}
 				case(2): {

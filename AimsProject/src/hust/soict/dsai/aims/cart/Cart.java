@@ -4,22 +4,35 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 
+import javax.naming.LimitExceededException;
+
 import hust.soict.dsai.aims.media.DigitalVideoDisc;
 import hust.soict.dsai.aims.media.Media;
 import hust.soict.dsai.aims.store.Store;
 import hust.soict.dsai.aims.utils.MediaUtils;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class Cart {
 	
 	public int qtyOrdered = 0; 
-	
+	private float totalCost = 0;
 	public static final int MAX_NUMBERS_ORDERED = 20;
-	private ArrayList<Media> itemsOrdered = new ArrayList<Media>();
+	private ObservableList<Media> itemsOrdered = FXCollections.observableArrayList();
 	
-	public void addMedia(Media media) {
-		itemsOrdered.add(media);
-		qtyOrdered++;
-		System.out.println(media.getTitle() + " has been added to the cart");
+	public ObservableList<Media> getItemsOrdered() {
+		return itemsOrdered;
+	}
+	
+	public void addMedia(Media media) throws LimitExceededException {
+		if (itemsOrdered.size() < MAX_NUMBERS_ORDERED) {
+			itemsOrdered.add(media);
+			qtyOrdered++;
+			System.out.println(media.getTitle() + " has been added to the cart");
+		}
+		else {
+			throw new LimitExceededException("ERROR: The number of media has reached its limit");
+		}
 	}
 	
 	public void removeMedia(Media media) {
@@ -35,14 +48,14 @@ public class Cart {
 	
 	// Calculate the total cost of the current cart
 	public float totalCost() {
-		float cost = 0;
+		totalCost = 0;
 		for (Media media: itemsOrdered) {
-			cost += media.getCost();
+			totalCost += media.getCost();
 		}
-		return cost;
+		return totalCost;
 	}
 	
-	public ArrayList<Media> sortByCost() {
+	public ObservableList<Media> sortByCost() {
 		Collections.sort(itemsOrdered, Media.COMPARE_BY_COST_TITLE);
 		Iterator iterator = itemsOrdered.iterator();
 			System.out.println("-----------------------");
@@ -54,7 +67,7 @@ public class Cart {
 			return itemsOrdered;
 		}
 	
-	public ArrayList<Media> sortByTitle() {
+	public ObservableList<Media> sortByTitle() {
 		Collections.sort(itemsOrdered, Media.COMPARE_BY_TITLE_COST);
 		
 		Iterator iterator = itemsOrdered.iterator();
@@ -121,7 +134,15 @@ public class Cart {
 		for (Media media: itemsOrdered) {
 			System.out.println(media);
 		}
-		System.out.println("Total cost: " + String.format("%.2f", totalCost()));
+		System.out.println("Total cost: " + String.format("%.2f", totalCost));
+	}
+	
+	public void placeOrder() {
+		// placeOrder function
+		this.itemsOrdered.clear();
+		System.out.println("An order has been created");
+		this.totalCost = 0f;
+		return;
 	}
 	
 	public Media getALuckyItem(Store store) {

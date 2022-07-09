@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.function.Function;
 
+import hust.soict.dsai.aims.exception.NegativeValueException;
 import hust.soict.dsai.aims.utils.MediaComparatorByCostTitle;
 import hust.soict.dsai.aims.utils.MediaComparatorByTitleCost;
 
@@ -46,13 +47,30 @@ public abstract class Media implements Comparable<Media>{
 		return nbMedias;
 	}
 
-	public Media(String title, String category, float cost) {
-		this.title = title;
-		this.category = category;
-		this.cost = cost;
-		dateAdded = LocalDate.now();
-		nbMedias ++;
-		this.id = nbMedias;
+	public Media(String title, String category, float cost) throws NullPointerException, NegativeValueException {
+		if (title == null || title == "") {
+			throw new NullPointerException("Title cannot be empty");
+		}
+		if (category == null || category == "") {
+			throw new NullPointerException("Category cannot be empty");
+		}
+		
+		else {
+			try {
+				this.title = title;
+				this.category = category;
+				this.cost = cost;
+				dateAdded = LocalDate.now();
+				nbMedias ++;
+				this.id = nbMedias;
+				if (this.cost <= 0) {
+					throw new NegativeValueException("Cost must be > 0");
+				}
+			}
+			catch (NumberFormatException e) {
+				throw new NumberFormatException("Cost must be a number");
+			}
+		}
 	}
 
 	public Media(String title) {
@@ -78,12 +96,16 @@ public abstract class Media implements Comparable<Media>{
 	}
 
 	public boolean equals(Object obj) {
-		if (!(obj instanceof Media)) {
-			return false;
+		try {
+			if (obj instanceof Media) {
+				return this.getId() == ((Media) obj).getId();
+			}
+		} catch (ClassCastException e) {
+			System.err.println(e.getMessage());
+		} catch (NullPointerException e) {
+			System.err.println("ERROR: NUll OBJECT");
 		}
-		else {
-			return this.getId() == ((Media) obj).getId();
-		}
+		return false;
 	}
 	
 	public int compareTo(Media media) {
